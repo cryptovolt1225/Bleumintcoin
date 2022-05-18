@@ -10,26 +10,19 @@ exports.SignupUser = (req, res) => {
         console.log("find result ")
         if (user) {
             console.log("user exist")
-            return res.send({result : "already exist"});
+            return res.send({"result" : "already exist"});
         }
-        Axios.get("http://65.108.169.160:3001/api/getnewaddress").then(function(response)  {
-            resolve(response.data.result);
-          })
-          .catch(function(error) {
-              console.log(error);
-          });
-
-          promise.then( result => {
-            console.log("result is",result)
-            const newUser = new User({firstName,lastName,email,phone,password});
-            bcrypt.genSalt(12, (err, salt) =>
-                bcrypt.hash(newUser.password, salt, (err, hash) => {
-                if (err) throw err;
-                newUser.password = hash;
-                newUser.save().then(res.send({result : "success"})).catch((err)=> console.log(err));
-                })
-            );
-         }); 
+     
+      
+        const newUser = new User({firstName,lastName,email,phone,password});
+        bcrypt.genSalt(12, (err, salt) =>
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) throw err;
+            newUser.password = hash;
+            newUser.save().then(res.send({"result" : "success"})).catch((err)=> console.log(err));
+            })
+        );
+       
     });
   
     // if(req.file){
